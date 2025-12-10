@@ -75,12 +75,13 @@ Expected Response:
   "id": 1,
   "type": "DEPOSIT",
   "amount": 100,
-  "timestamp": "2025-12-10T02:50:48.0834494",
+  "timestamp": "2025-12-10T03:32:37.610031",
   "description": "Initial deposit"
 }
 
-```
 
+```
+---
 ### Step 2: Withdraw 300 (Expected to Fail - Insufficient Funds)
 ```
 curl -s -X POST http://localhost:8080/transactions/withdraw \
@@ -91,13 +92,13 @@ curl -s -X POST http://localhost:8080/transactions/withdraw \
 Expected Response (HTTP 400 Bad Request):
 ```
 {
-  "timestamp": "...",
   "status": 400,
-  "error": "Cannot withdraw more money than you have in your account balance.",
-  "path": "/transactions/withdraw"
+  "timestamp": "2025-12-10T03:33:11.6550918",
+  "error": "Cannot withdraw more money than you have in your account balance."
 }
-```
 
+```
+---
 ### Step 3: Check Current Balance
 ```
 curl -s http://localhost:8080/transactions/balance | jq
@@ -105,10 +106,10 @@ curl -s http://localhost:8080/transactions/balance | jq
 
 Expected Response (HTTP 400 Bad Request):
 ```
-100.0
+100
 ```
 
-
+---
 ### Step 4: Withdraw 30
 ```
 curl -s -X POST http://localhost:8080/transactions/withdraw \
@@ -119,14 +120,15 @@ curl -s -X POST http://localhost:8080/transactions/withdraw \
 Expected Response (HTTP 400 Bad Request):
 ```
 {
-  "id": "...",
+  "id": 2,
   "type": "WITHDRAWAL",
-  "amount": 30.0,
-  "timestamp": "...",
+  "amount": 30,
+  "timestamp": "2025-12-10T03:34:05.355972",
   "description": "Videogames"
 }
-```
 
+```
+---
 ### Step 5: View transaction history
 ```
 curl -s http://localhost:8080/transactions | jq
@@ -135,33 +137,34 @@ curl -s http://localhost:8080/transactions | jq
 Expected Response (HTTP 400 Bad Request):
 ```
 [
-  { 
-    "id": "...", 
-    "type": "DEPOSIT", 
-    "amount": 100.0, 
-    "timestamp": "...", 
-    "description": "Initial deposit" 
+  {
+    "id": 1,
+    "type": "DEPOSIT",
+    "amount": 100,
+    "timestamp": "2025-12-10T03:32:37.610031",
+    "description": "Initial deposit"
   },
-  { 
-    "id": "...", 
-    "type": "WITHDRAWAL", 
-    "amount": 30.0, 
-    "timestamp": "...", 
-    "description": "Videogames" 
+  {
+    "id": 2,
+    "type": "WITHDRAWAL",
+    "amount": 30,
+    "timestamp": "2025-12-10T03:34:05.355972",
+    "description": "Videogames"
   }
 ]
-```
 
+```
+---
 ### Step 6: Check Final Balance
 ```
 curl -s http://localhost:8080/transactions/balance | jq
 ```
 
-Expected Response (HTTP 400 Bad Request):
+Expected Response:
 ```
-70.0
+70
 ```
-
+---
 ### Extra test: Try to deposit or withdraw a negative or zero value
 ```
 curl -s -X POST http://localhost:8080/transactions/deposit \
@@ -172,10 +175,11 @@ curl -s -X POST http://localhost:8080/transactions/deposit \
 Expected Response (HTTP 400 Bad Request):
 ```
 {
-  "error": "Amount must be a positive value.",
   "status": 400,
-  "timestamp": "2025-12-10T03:06:11.9256538"
+  "timestamp": "2025-12-10T03:35:09.7366916",
+  "error": "Amount must be a positive value."
 }
+
 
 ```
 
