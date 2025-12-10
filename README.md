@@ -197,19 +197,3 @@ As permitted by the assignment, the following simplifications were made:
 ### Error Handling
 A dedicated GlobalExceptionHandler component handles application-wide exceptions. This ensures that validation errors, such as insufficient funds during a withdrawal, are converted into a structured JSON response with the appropriate HTTP 400 Bad Request status, providing a good API experience.
 Without this feature, when getting an error, user would only be shown a generic response as the logs are shown in the Sprint Boot terminal.
-
-### Project Structure
-```
-tiny-ledger/
-├── src/main/java/com/teya/tinyledger/
-│    ├── TinyLedgerApplication.java    # Spring Boot Main Class
-│    ├── LedgerService.java           # Business Logic & In-Memory Store
-│    ├── LedgerController.java        # REST API Endpoints
-│    ├── Transaction.java             # Data Model (Record)
-│    ├── TransactionType.java         # Enum for DEPOSIT/WITHDRAWAL
-│    └── GlobalExceptionHandler.java  # Custom Error Mapping
-├── pom.xml                          # Maven configuration
-├── mvnw                             # Maven Wrapper (Linux/macOS)
-├── mvnw.cmd                         # Maven Wrapper (Windows)
-└── .gitignore
-```
