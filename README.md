@@ -53,10 +53,6 @@ You can verify the installation by running the following command on Git Bash and
 jq --version
 ```
 
-### Note: Why Git Bash Instead of PowerShell?
-
-On Windows, the default PowerShell environment aliases `curl` to `Invoke-WebRequest`, which complicates simple JSON requests. Git Bash provides the real `curl` CLI, making the provided examples simpler, consistent, and directly executable.
-
 ---
 
 ##  Test Cases
