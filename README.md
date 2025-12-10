@@ -29,6 +29,12 @@ Interaction is done entirely through REST API endpoints using the `curl` command
     ```bash
     ./mvnw spring-boot:run
     ```
+    OR
+    ```
+    ./mvnw clean package
+    
+    java -jar target/tiny-ledger-0.0.1-SNAPSHOT.jar
+    ```
  
 
 When started successfully, the API will be available at:
