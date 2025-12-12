@@ -11,10 +11,6 @@ public class LedgerRequest {
     public LedgerRequest() {
     }
 
-    public LedgerRequest (BigDecimal amount, String description) {
-        this.amount = amount;
-        this.description = description;
-    }
 
     public BigDecimal getAmount() {
         return amount;
