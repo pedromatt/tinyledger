@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/ledger")
 public class LedgerController {
 
     private final LedgerService ledgerService;
@@ -16,23 +16,28 @@ public class LedgerController {
         this.ledgerService = ledgerService;
     }
 
-    @PostMapping("/deposit")
-    public Transaction deposit(@RequestBody LedgerRequest request) {
-        return ledgerService.deposit(request.getAmount(), request.getDescription());
+    @PostMapping("/{accountId}/deposit")
+    public Transaction deposit(@PathVariable int accountId, @RequestBody LedgerRequest request) {
+        return ledgerService.deposit(accountId, request.getAmount(), request.getDescription());
     }
 
-    @PostMapping("/withdraw")
-    public Transaction withdraw(@RequestBody LedgerRequest request) {
-        return ledgerService.withdraw(request.getAmount(), request.getDescription());
+    @PostMapping("/{accountId}/withdraw")
+    public Transaction withdraw(@PathVariable int accountId, @RequestBody LedgerRequest request) {
+        return ledgerService.withdraw(accountId, request.getAmount(), request.getDescription());
     }
 
-    @GetMapping
-    public List<Transaction> getAllTransactions() {
-        return ledgerService.getAllTransactions();
+    @GetMapping("/{accountId}/transactions")
+    public List<Transaction> getAllTransactions(@PathVariable int accountId) {
+        return ledgerService.getAllTransactionsFromAccount(accountId);
     }
 
-    @GetMapping("/balance")
-    public BigDecimal getBalance() {
-        return ledgerService.getCurrentBalance();
+    @GetMapping("/{accountId}/balance")
+    public BigDecimal getBalance(@PathVariable int accountId) {
+        return ledgerService.getCurrentBalance(accountId);
+    }
+
+    @PostMapping("/{accountId}/transfer")
+    public List<Transaction> transfer(@PathVariable int accountId, @RequestBody TransferRequest request) {
+        return ledgerService.transfer(accountId, request.getAmount(), request.getDescription(), request.getReceiverId());
     }
 }
