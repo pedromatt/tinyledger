@@ -16,14 +16,24 @@ public class LedgerController {
         this.ledgerService = ledgerService;
     }
 
-    @PostMapping("/deposit")
+    @PostMapping(value = "/deposit", consumes = "application/json")
     public Transaction deposit(@RequestBody LedgerRequest request) {
         return ledgerService.deposit(request.getAmount(), request.getDescription());
     }
 
-    @PostMapping("/withdraw")
+    @PostMapping("/deposit")
+    public Transaction depositParam(@RequestParam BigDecimal amount, @RequestParam(required = false) String desc) {
+        return ledgerService.deposit(amount, desc);
+    }
+
+    @PostMapping(value = "/withdraw", consumes = "application/json")
     public Transaction withdraw(@RequestBody LedgerRequest request) {
         return ledgerService.withdraw(request.getAmount(), request.getDescription());
+    }
+
+    @PostMapping("/withdraw")
+    public Transaction withdrawParam(@RequestParam BigDecimal amount, @RequestParam(required = false) String desc) {
+        return ledgerService.withdraw(amount, desc);
     }
 
     @GetMapping
